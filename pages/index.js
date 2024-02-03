@@ -1,25 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+import { getHotels } from '../api/hotelData';
+// import { useAuth } from '../utils/context/authContext';
+import HotelCard from '../components/HotelCard';
 
 function Home() {
-  const { user } = useAuth();
+  // TODO: Set a state for hotels
+  const [hotels, setHotels] = useState([]);
+
+  // TODO: Get user ID using useAuth Hook
+  // const { user } = useAuth();
+
+  // TODO: create a function that makes the API call to get all the hotels
+  const getAllTheHotels = () => {
+    getHotels().then(setHotels);
+  };
+
+  // TODO: make the call to the API to get all the hotels on component render
+  useEffect(() => {
+    getAllTheHotels();
+  }, []);
+
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+    <div className="text-center my-4">
+      <Link href="/room" passHref>
+        <Button>Details</Button>
+      </Link>
+      <div className="d-flex flex-wrap">
+        {/* TODO: map over hotels here using HotelCard component */}
+        {hotels.map((hotel) => (
+          <HotelCard key={hotel.id} hotelObj={hotel} onUpdate={getAllTheHotels} />
+        ))}
+      </div>
+
     </div>
   );
 }
