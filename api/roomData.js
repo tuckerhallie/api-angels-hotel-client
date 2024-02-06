@@ -1,10 +1,10 @@
-import { clientCredentials } from "../utils/client";
+import { clientCredentials } from '../utils/client';
 
 const getRooms = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/rooms`, {
     method: 'GET',
     headers: {
-      'Content-Type' : 'application/json',
+      'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
@@ -41,6 +41,6 @@ const deleteSingleRoom = (id) => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
-}); 
+});
 
 export { getRooms, updateRooms, deleteSingleRoom };
