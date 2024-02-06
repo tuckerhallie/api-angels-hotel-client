@@ -24,4 +24,4 @@ const getSingleHotel = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default { getHotels, getSingleHotel };
+export { getHotels, getSingleHotel };

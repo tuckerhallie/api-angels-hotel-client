@@ -6,13 +6,10 @@ import Link from 'next/link';
 function HotelCard({ hotelObj }) {
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={hotelObj.image} alt={hotelObj.name} style={{ height: '400px' }} />
+      <Card.Img variant="top" src={hotelObj.images} alt={hotelObj.name} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{hotelObj.name}</Card.Title>
-        <p className="card-text bold"> ${hotelObj.city}</p>
-        <Link href={`/hotels/${hotelObj.id}`} passHref>
-          <Button variant="primary" className="m-2">VIEW</Button>
-        </Link>
+        <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} {hotelObj.description}</p>
         <Link href={`/hotels/edit/${hotelObj.id}`} passHref>
           <Button variant="info">DETAILS</Button>
         </Link>
@@ -24,7 +21,7 @@ function HotelCard({ hotelObj }) {
 HotelCard.propTypes = {
   hotelObj: PropTypes.shape({
     name: PropTypes.string,
-    image: PropTypes.string,
+    images: PropTypes.string,
     address: PropTypes.string,
     city: PropTypes.string,
     amenities: PropTypes.string,
