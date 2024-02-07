@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function HotelCard({ hotelObj }) {
+  const router = useRouter();
+  function hotelDetails(id) {
+    router.push(`hotels/${id}`);
+  }
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={hotelObj.images} alt={hotelObj.name} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{hotelObj.name}</Card.Title>
-        <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} {hotelObj.description}</p>
-        <Link href={`/hotels/edit/${hotelObj.id}`} passHref>
-          <Button variant="info">DETAILS</Button>
-        </Link>
+        <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} </p>
+        <Button variant="primary" onClick={() => hotelDetails(hotelObj.id)} type="info">
+          Details
+        </Button>
       </Card.Body>
     </Card>
   );
@@ -21,7 +25,7 @@ function HotelCard({ hotelObj }) {
 HotelCard.propTypes = {
   hotelObj: PropTypes.shape({
     name: PropTypes.string,
-    images: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired),
     address: PropTypes.string,
     city: PropTypes.string,
     amenities: PropTypes.string,
