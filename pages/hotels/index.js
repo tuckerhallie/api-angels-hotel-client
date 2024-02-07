@@ -41,4 +41,4 @@ function SingleHotel() {
   );
 }
 
-export default { SingleHotel };
+export default SingleHotel;
