@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getRooms } from '../../api/roomData';
+import getRooms from '../../../api/roomData';
 
 function SingleHotel() {
   const [rooms, setRooms] = useState([]);
