@@ -18,5 +18,4 @@ const getRooms = (hotelId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-
-export { getRooms  };
+export default getRooms;
