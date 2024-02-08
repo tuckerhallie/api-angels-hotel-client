@@ -15,7 +15,7 @@ function SingleHotel() {
   }, []);
 
   const goToBooking = () => {
-    router.push(`/hotels/${hotelId}/booking`);
+    router.push(`/hotels/${hotelId}/addBookingForm`);
   };
 
   return (

@@ -1,4 +1,4 @@
-/* import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -6,8 +6,9 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
 import { updateBooking, createNewBooking } from '../../api/bookingData';
+
 const initialState = {
-   check_in: '',
+  check_in: '',
   check_out: '',
   no_of_guests: '',
   total_amount: '',
@@ -20,7 +21,7 @@ function BookingForm({ obj }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (obj.id) setFormInput(obj);
+    if (obj.room_id) setFormInput(obj);
   }, [obj, user]);
 
   const handleChange = (e) => {
@@ -33,8 +34,8 @@ function BookingForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.id) {
-      updateBooking(formInput).then(() => router.push(`/bookings/${obj.id}`));
+    if (obj.room_id) {
+      updateBooking(formInput).then(() => router.push(`/bookings/${obj.room_id}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createNewBooking(payload).then(({ name }) => {
@@ -48,43 +49,42 @@ function BookingForm({ obj }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} </h2>
-      <FloatingLabel controlId="floatingInput1" label="First Name" className="mb-3">
+      <h2 className="text-white mt-5">{obj.room_id ? 'Update' : 'Create'} </h2>
+      <FloatingLabel controlId="floatingInput1" label="Check-In" className="mb-3">
         <Form.Control
           type="text"
           placeholder="Check-In"
-          name="first_name"
-          value={formInput.first_name}
+          name="check_in"
+          value={formInput.check_in}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="Last Name" className="mb-3">
+      <FloatingLabel controlId="floatingInput2" label="Check-Out" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Last Name"
-          name="last_name"
-          value={formInput.last_name}
+          placeholder="Check-Out"
+          value={formInput.check_out}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter an image url"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingInput3" label="Email" className="mb-3">
+      <FloatingLabel controlId="floatingInput2" label="No_of_Guests" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Email"
-          name="email"
-          value={formInput.email}
+          placeholder="Number of Guests"
+          name="Number of Guests"
+          value={formInput.number_of_guests}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="floatingInput3" label="Total Amount" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Total Amount"
+          name="total"
+          value={formInput.total_amount}
           onChange={handleChange}
           required
         />
@@ -102,17 +102,17 @@ function BookingForm({ obj }) {
             favorite: e.target.checked,
           }));
         }}
-      />
-      <Button type="submit">{obj.id} Submit</Button>
+      />*/
+      <Button type="submit">{obj.room_id} Submit</Button>
     </Form>
   );
 }
 
 BookingForm.propTypes = {
   obj: PropTypes.shape({
-    booking: PropTypes.number,
-    user: PropTypes.number,
-    room: PropTypes.number,
+    id: PropTypes.number,
+    room_id: PropTypes.number, // map thru rooms
+    user_id: PropTypes.number,
     check_in: PropTypes.string,
     check_out: PropTypes.string,
     number_of_guests: PropTypes.number,
@@ -126,4 +126,3 @@ BookingForm.defaultProps = {
 };
 
 export default BookingForm;
-*/
