@@ -18,4 +18,19 @@ const getRooms = (hotelId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default getRooms;
+const getSingleRoom = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/rooms/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+export {
+  getRooms,
+  getSingleRoom,
+}

@@ -18,21 +18,21 @@ const getBookings = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createNewBooking = (newBookingPayload) => new Promise((resolve, reject) => {
+const createNewBooking = (booking) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/bookings.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(newBookingPayload),
+    body: JSON.stringify(booking),
   })
     .then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);
 });
 
-const getUserRoom = (userId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/rooms?userId=${userId}`, {
+const getBookingsByUser = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/bookings?userId=${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -79,5 +79,5 @@ export {
   deleteSingleBooking,
   updateBooking,
   createNewBooking,
-  getUserRoom,
+  getBookingsByUser,
 };
