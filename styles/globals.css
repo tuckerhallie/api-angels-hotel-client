@@ -18,5 +18,18 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: white;
+}
+
+#room-images {
+  display: flex;
+  list-style: none;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+
+#room-image {
+  flex-shrink: 0;
+  width: 100%;
+  scroll-snap-align: start;
 }
