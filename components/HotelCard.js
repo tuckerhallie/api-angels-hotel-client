@@ -10,7 +10,11 @@ function HotelCard({ hotelObj }) {
   }
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={hotelObj.images} alt={hotelObj.name} style={{ height: '400px' }} />
+      <div id="room-images">
+        {hotelObj.images.map((image) => (
+          <Card.Img variant="top" key={image} src={image} alt={hotelObj.name} style={{ height: '200px' }} />
+        ))}
+      </div>
       <Card.Body>
         <Card.Title>{hotelObj.name}</Card.Title>
         <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} </p>
