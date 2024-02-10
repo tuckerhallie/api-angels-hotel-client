@@ -23,7 +23,7 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Hotels</Nav.Link>
             </Link>
-            <Link passHref href="/AllBookingsPage">
+            <Link passHref href="/bookings">
               <Nav.Link>Bookings</Nav.Link>
             </Link>
             <Link passHref href="/profile">
