@@ -33,4 +33,4 @@ const getSingleRoom = (id) => new Promise((resolve, reject) => {
 export {
   getRooms,
   getSingleRoom,
-}
+};
