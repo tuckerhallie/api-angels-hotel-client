@@ -31,8 +31,8 @@ function SingleHotel() {
                     <Card.Img variant="top" src={image} key={image} id="room-img" alt={hotelRoom.name} style={{ height: '200px' }} />
                   ))}
                 </div>
-                <Card.Text>{hotelRoom.room_type}</Card.Text>
-                <Card.Text>{hotelRoom.price_per_night}</Card.Text>
+                <Card.Text>Room Type : {hotelRoom.room_type}</Card.Text>
+                <Card.Text>Price per Night : $ {hotelRoom.price_per_night}</Card.Text>
               </Card.Body>
               <Button variant="success" type="payment" onClick={() => goToBooking(hotelRoom.id)}>
                 Book

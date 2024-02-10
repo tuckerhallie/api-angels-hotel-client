@@ -16,8 +16,11 @@ function HotelCard({ hotelObj }) {
         ))}
       </div>
       <Card.Body>
-        <Card.Title>{hotelObj.name}</Card.Title>
-        <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} </p>
+        <Card.Title> {hotelObj.name}</Card.Title>
+        <Card.Text>Address : {hotelObj.address}</Card.Text>
+        <Card.Text>City: {hotelObj.city}</Card.Text>
+        <Card.Text>Amenities: {hotelObj.amenities}</Card.Text>
+        <Card.Text>Ratings : {hotelObj.rating}</Card.Text>
         <Button variant="primary" onClick={() => hotelDetails(hotelObj.id)} type="info">
           Details
         </Button>
