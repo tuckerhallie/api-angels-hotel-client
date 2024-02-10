@@ -56,7 +56,7 @@ const BookingForm = ({ bookingObj }) => {
       const numberOfDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
 
       // Calculate total amount
-      const totalAmount = numberOfDays * room.price_per_night * formInput.no_of_guests;
+      const totalAmount = numberOfDays * room.price_per_night;
 
       // Update state with the calculated values
       setFormInput((prevState) => ({
@@ -136,7 +136,7 @@ const BookingForm = ({ bookingObj }) => {
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Total Amount</Form.Label>
-        <p>{formInput.no_of_days ? formInput.no_of_days * room.price_per_night * formInput.no_of_guests : ''}</p>
+        <p>{formInput.no_of_days ? formInput.no_of_days * room.price_per_night : ''}</p>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Payment Type</Form.Label>
