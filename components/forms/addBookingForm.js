@@ -38,6 +38,7 @@ const BookingForm = ({ bookingObj }) => {
         payment_type: bookingObj.payment_type,
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookingObj, user]);
 
   const handleChange = (e) => {
