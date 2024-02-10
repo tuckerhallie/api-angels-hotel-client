@@ -46,6 +46,24 @@ const BookingForm = ({ bookingObj }) => {
       ...prevState,
       [name]: value,
     }));
+
+    // Calculate the number of days and total amount when either check-in or check-out date changes
+    if (name === 'check_in' || name === 'check_out') {
+      const checkInDate = new Date(name === 'check_in' ? value : formInput.check_in);
+      const checkOutDate = new Date(name === 'check_out' ? value : formInput.check_out);
+      const differenceInTime = checkOutDate.getTime() - checkInDate.getTime();
+      const numberOfDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+      // Calculate total amount
+      const totalAmount = numberOfDays * room.price_per_night * formInput.no_of_guests;
+
+      // Update state with the calculated values
+      setFormInput((prevState) => ({
+        ...prevState,
+        no_of_days: numberOfDays,
+        total_amount: totalAmount,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -116,13 +134,8 @@ const BookingForm = ({ bookingObj }) => {
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label> Total Amount </Form.Label>
-        <Form.Control
-          name="total_amount"
-          value={formInput.total_amount}
-          onChange={handleChange}
-          required
-        />
+        <Form.Label>Total Amount</Form.Label>
+        <p>{formInput.no_of_days ? formInput.no_of_days * room.price_per_night * formInput.no_of_guests : ''}</p>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Payment Type</Form.Label>
