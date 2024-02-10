@@ -1,34 +1,54 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { Button, Card } from 'react-bootstrap';
+// import Button from 'react-bootstrap/Button';
+// import Card from 'react-bootstrap/Card';
 // import Link from 'next/link';
+// import { deleteSingleBooking } from '../api/bookingData';
 
-// function BookingCard({ bookingObj }) {
+// function BookingCard({ bookingObj, onUpdate }) {
+//   const deleteThisBooking = () => {
+//     if (window.confirm(`Delete ${bookingObj.roomId}?`)) {
+//       deleteSingleBooking(bookingObj.id).then(() => onUpdate());
+//     }
+//   };
+
 //   return (
 //     <Card style={{ width: '18rem', margin: '10px' }}>
-//       <Card.Img variant="top" src={hotelObj.images} alt={hotelObj.name} style={{ height: '400px' }} />
-//       <Card.Body>
-//         <Card.Title>{hotelObj.name}</Card.Title>
-//         <p className="card-text bold"> {hotelObj.address}, {hotelObj.city}  {hotelObj.amenities}, {hotelObj.rating} {hotelObj.description}</p>
-//         <Link href={`/hotels/edit/${hotelObj.id}`} passHref>
-//           <Button variant="info">DETAILS</Button>
-//         </Link>
-//       </Card.Body>
+//       <div className="booking-card">
+//         <Card.Body>
+//           <h2>{hotelName}</h2>
+//           <p>room_type: {roomType}</p>
+//           <p>check_in: {checkInDate}</p>
+//           <p>check_out: {checkOutDate}</p>
+//           <p>no_of_guests: {numOfGuests}</p>
+//           <p>total_amount: {totalAmount}</p>
+//           <p>payment_type: {paymentType}</p>
+
+//           <Link href={`/bookings/new/${bookingObj.id}`} passHref>
+//             <Button variant="info">EDIT</Button>
+//           </Link>
+//           <Button variant="danger" onClick={deleteThisBooking} className="m-2">
+//             DELETE
+//           </Button>
+//         </Card.Body>
+//       </div>
 //     </Card>
 //   );
 // }
 
-// HotelCard.propTypes = {
-//   hotelObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     images: PropTypes.string,
-//     address: PropTypes.string,
-//     city: PropTypes.string,
-//     amenities: PropTypes.string,
-//     rating: PropTypes.number,
-//     description: PropTypes.string,
-//     id: PropTypes.string,
+// BookingCard.propTypes = {
+//   bookingObj: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     roomId: PropTypes.string.isRequired,
+//     hotelName: PropTypes.string.isRequired,
+//     roomType: PropTypes.string.isRequired,
+//     checkInDate: PropTypes.string.isRequired,
+//     checkOutDate: PropTypes.string.isRequired,
+//     numOfGuests: PropTypes.number.isRequired,
+//     totalAmount: PropTypes.number.isRequired,
+//     paymentType: PropTypes.string.isRequired,
 //   }).isRequired,
+//   onUpdate: PropTypes.func.isRequired,
 // };
 
-// export default HotelCard;
+// export default BookingCard;
