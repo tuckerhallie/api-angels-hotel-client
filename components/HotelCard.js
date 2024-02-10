@@ -35,7 +35,7 @@ HotelCard.propTypes = {
     amenities: PropTypes.string,
     rating: PropTypes.number,
     description: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
 };
 

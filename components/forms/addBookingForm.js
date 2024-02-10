@@ -10,8 +10,8 @@ import { getSingleRoom } from '../../api/roomData';
 const initialState = {
   check_in: '',
   check_out: '',
-  no_of_guests: '',
-  total_amount: '',
+  no_of_guests: 0,
+  total_amount: 0,
   payment_type: '',
   room_id: 0,
   user_id: 0,
@@ -19,26 +19,27 @@ const initialState = {
 
 const BookingForm = ({ bookingObj }) => {
   const [formInput, setFormInput] = useState(initialState);
-  const [room, setRoom] = useState([]);
+  const [room, setRoom] = useState({});
   const router = useRouter();
   const { roomId } = router.query;
   const { user } = useAuth();
 
   useEffect(() => {
-    getSingleRoom(roomId).then((data) => setRoom(data));
     if (bookingObj.id) {
       setFormInput({
         id: bookingObj.id,
         user_id: bookingObj.user.id,
         room_id: bookingObj.room.id,
-        check_in: bookingObj.check_in,
-        check_out: bookingObj.check_out,
+        check_in: new Date(bookingObj.check_in).toISOString().split('T')[0],
+        check_out: new Date(bookingObj.check_out).toISOString().split('T')[0],
         no_of_guests: bookingObj.no_of_guests,
         total_amount: bookingObj.total_amount,
         payment_type: bookingObj.payment_type,
       });
+      setRoom(bookingObj.room);
+    } else if (roomId) {
+      getSingleRoom(roomId).then((data) => setRoom(data));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookingObj, user]);
 
   const handleChange = (e) => {
@@ -49,19 +50,19 @@ const BookingForm = ({ bookingObj }) => {
     }));
 
     // Calculate the number of days and total amount when either check-in or check-out date changes
-    if (name === 'check_in' || name === 'check_out') {
+    if (name === 'check_in' || name === 'check_out' || name === 'no_of_guests') {
       const checkInDate = new Date(name === 'check_in' ? value : formInput.check_in);
       const checkOutDate = new Date(name === 'check_out' ? value : formInput.check_out);
+      const guestNum = name === 'no_of_guests' ? value : formInput.no_of_guests;
       const differenceInTime = checkOutDate.getTime() - checkInDate.getTime();
       const numberOfDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
 
       // Calculate total amount
-      const totalAmount = numberOfDays * room.price_per_night;
+      const totalAmount = numberOfDays * room.price_per_night * guestNum;
 
       // Update state with the calculated values
       setFormInput((prevState) => ({
         ...prevState,
-        no_of_days: numberOfDays,
         total_amount: totalAmount,
       }));
     }
@@ -126,7 +127,7 @@ const BookingForm = ({ bookingObj }) => {
           value={formInput.no_of_guests}
           onChange={handleChange}
         >
-          <option value="">Add Guests</option>
+          <option value="0">Add Guests</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -136,7 +137,7 @@ const BookingForm = ({ bookingObj }) => {
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Total Amount</Form.Label>
-        <p>{formInput.no_of_days ? formInput.no_of_days * room.price_per_night : ''}</p>
+        <p>{!Number.isNaN(formInput.total_amount) ? formInput.total_amount : 0}</p>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Payment Type</Form.Label>
@@ -161,7 +162,22 @@ const BookingForm = ({ bookingObj }) => {
 BookingForm.propTypes = {
   bookingObj: PropTypes.shape({
     id: PropTypes.number,
-    room: PropTypes.number,
+    room: PropTypes.shape({
+      id: PropTypes.number,
+      hotel: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        images: PropTypes.arrayOf(PropTypes.string),
+        address: PropTypes.string,
+        city: PropTypes.string,
+        amenities: PropTypes.string,
+        rating: PropTypes.number,
+      }),
+      room_number: PropTypes.number,
+      room_type: PropTypes.string,
+      images: PropTypes.arrayOf(PropTypes.string),
+      price_per_night: PropTypes.number,
+    }),
     user: PropTypes.number,
     check_in: PropTypes.string,
     check_out: PropTypes.string,
