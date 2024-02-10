@@ -17,7 +17,7 @@ function Signin() {
         paddingBlock: '0 5rem',
       }}
     >
-      <h1>🏨Welcome to API Angels Hotel🏨</h1>
+      <h1>🏨MyBookings🏨</h1>
       <p>Sign in to start booking!</p>
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
