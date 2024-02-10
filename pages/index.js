@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Button } from 'react-bootstrap';
 import { getHotels } from '../api/hotelData';
 // import { useAuth } from '../utils/context/authContext';
 import HotelCard from '../components/HotelCard';
@@ -25,9 +23,6 @@ function Home() {
 
   return (
     <div className="text-center my-4">
-      <Link href="/room" passHref>
-        <Button>Details</Button>
-      </Link>
       <div className="d-flex flex-wrap">
         {/* TODO: map over hotels here using HotelCard component */}
         {hotels.map((hotel) => (

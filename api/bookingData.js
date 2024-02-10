@@ -19,7 +19,7 @@ const getBookings = () => new Promise((resolve, reject) => {
 });
 
 const createNewBooking = (booking) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/bookings.json`, {
+  fetch(`${clientCredentials.databaseURL}/bookings`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,28 +49,38 @@ const getBookingsByUser = (userId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateBooking = (payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/bookings/${payload.firebaseKey}.json`, {
-    method: 'PATCH',
+const updateBooking = (booking) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/bookings/${booking.id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(booking),
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then(resolve)
     .catch(reject);
 });
 
 const deleteSingleBooking = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/bookings/${id}.json`, {
+  fetch(`${clientCredentials.databaseURL}/bookings/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
+    .then(resolve)
+    .catch(reject);
+});
+
+const getSingleBooking = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/bookings/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
     .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then(resolve)
     .catch(reject);
 });
 
@@ -80,4 +90,5 @@ export {
   updateBooking,
   createNewBooking,
   getBookingsByUser,
+  getSingleBooking,
 };

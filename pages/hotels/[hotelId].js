@@ -24,22 +24,20 @@ function SingleHotel() {
       <Card style={{ width: '18rem' }} className="card-color">
         {rooms ? (
           rooms.map((hotelRoom) => (
-            <>
-              <div key={hotelRoom.id} className="d-flex justify-content-start gap-3">
-                <Card.Body>
-                  <div id="room-images">
-                    {hotelRoom.images.map((image) => (
-                      <Card.Img variant="top" src={image} key={image} id="room-img" alt={hotelRoom.name} style={{ height: '200px' }} />
-                    ))}
-                  </div>
-                  <Card.Text>{hotelRoom.room_type}</Card.Text>
-                  <Card.Text>{hotelRoom.price_per_night}</Card.Text>
-                </Card.Body>
-              </div>
+            <div key={hotelRoom.id} className="d-flex flex-column justify-content-start gap-3">
+              <Card.Body>
+                <div id="room-images">
+                  {hotelRoom.images.map((image) => (
+                    <Card.Img variant="top" src={image} key={image} id="room-img" alt={hotelRoom.name} style={{ height: '200px' }} />
+                  ))}
+                </div>
+                <Card.Text>{hotelRoom.room_type}</Card.Text>
+                <Card.Text>{hotelRoom.price_per_night}</Card.Text>
+              </Card.Body>
               <Button variant="success" type="payment" onClick={() => goToBooking(hotelRoom.id)}>
                 Book
               </Button>
-            </>
+            </div>
           ))
         ) : (<div>No Rooms</div>)}
 
